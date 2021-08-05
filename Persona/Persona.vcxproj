@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6c61cd2e-2a46-4b2d-af91-8068a43e71f3}</ProjectGuid>
+    <RootNamespace>Persona</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgAutoLink>false</VcpkgAutoLink>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\persona.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\chrono.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\color.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\compile.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\core.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\format-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\format.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\locale.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\os.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\ostream.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\posix.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\printf.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\fmt\ranges.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\async.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\async_logger-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\async_logger.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\cfg\argv.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\cfg\env.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\cfg\helpers-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\cfg\helpers.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\common-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\common.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\backtracer-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\backtracer.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\circular_q.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\console_globals.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\file_helper-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\file_helper.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\fmt_helper.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\log_msg-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\log_msg.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\log_msg_buffer-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\log_msg_buffer.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\mpmc_blocking_q.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\null_mutex.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\os-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\os.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\periodic_worker-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\periodic_worker.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\registry-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\registry.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\synchronous_factory.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\tcp_client-windows.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\tcp_client.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\thread_pool-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\thread_pool.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\details\windows_include.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fmt\bin_to_hex.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fmt\chrono.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fmt\compile.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fmt\fmt.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fmt\ostr.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fmt\xchar.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\formatter.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\fwd.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\logger-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\logger.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\pattern_formatter-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\pattern_formatter.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\android_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\ansicolor_sink-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\ansicolor_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\base_sink-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\base_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\basic_file_sink-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\basic_file_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\daily_file_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\dist_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\dup_filter_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\hourly_file_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\mongo_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\msvc_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\null_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\ostream_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\qt_sinks.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\ringbuffer_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\rotating_file_sink-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\rotating_file_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\sink-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\stdout_color_sinks-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\stdout_color_sinks.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\stdout_sinks-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\stdout_sinks.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\syslog_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\systemd_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\tcp_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\wincolor_sink-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\wincolor_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\sinks\win_eventlog_sink.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\spdlog-inl.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\spdlog.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\stopwatch.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\tweakme.h" />
+    <ClInclude Include="vcpkg_installed\x64-windows-static\include\spdlog\version.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\persona.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
