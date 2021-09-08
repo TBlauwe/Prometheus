@@ -9,12 +9,21 @@
 #include <spdlog/spdlog.h>
 #include <doctest/doctest.h>
 
+namespace Engine{
 
-void launch()
-{
-    std::cout << "Engine loaded!\n";
-    system("pause");
-    spdlog::info("hello");
+	void initialize(){
+		spdlog::set_level(spdlog::level::trace);
+		spdlog::set_pattern("%^[%8l]%$ %v");
+		spdlog::info("Initialization complete !");
+	}
+
+	void run(){
+		//spdlog::info("shouting ...");
+	}
+
+	void shutdown(){
+		spdlog::info("Shutdown complete !");
+	}
 }
 
 int fact(int n) {

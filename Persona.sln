@@ -7,7 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Persona", "Persona\Persona.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{50D6BC8F-3CA7-47EB-8DDD-C44808F9492C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vendor", "vendor\vendor.vcxitems", "{7A4B3DF1-AC5D-4A5D-9543-39D941054006}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		vendor\vendor.vcxitems*{50d6bc8f-3ca7-47eb-8ddd-c44808f9492c}*SharedItemsImports = 4
+		vendor\vendor.vcxitems*{7a4b3df1-ac5d-4a5d-9543-39d941054006}*SharedItemsImports = 9
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86

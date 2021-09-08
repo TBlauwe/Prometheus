@@ -1,3 +1,7 @@
 #pragma once
 
-void launch();
+namespace Engine{
+	void initialize();
+	void run();
+	void shutdown();
+}
