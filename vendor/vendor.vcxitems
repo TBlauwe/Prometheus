@@ -23,6 +23,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\imstb_textedit.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\imstb_truetype.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)imnodes\imnodes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)imnodes\imnodes_internal.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\backends\imgui_impl_glfw.cpp" />
@@ -33,5 +35,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\imgui_tables.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\imgui_widgets.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)imnodes\imnodes.cpp" />
   </ItemGroup>
 </Project>

@@ -13,6 +13,9 @@
     <Filter Include="ImGui\misc\cpp">
       <UniqueIdentifier>{4d11802d-b153-4763-857c-f24d5977daef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImNodes">
+      <UniqueIdentifier>{a8af95d9-dc00-468a-bfc8-b706498ee149}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\imconfig.h">
@@ -42,6 +45,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\misc\cpp\imgui_stdlib.h">
       <Filter>ImGui\misc\cpp</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)imnodes\imnodes.h">
+      <Filter>ImNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)imnodes\imnodes_internal.h">
+      <Filter>ImNodes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\imgui.cpp">
@@ -67,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\misc\cpp\imgui_stdlib.cpp">
       <Filter>ImGui\misc\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)imnodes\imnodes.cpp">
+      <Filter>ImNodes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
