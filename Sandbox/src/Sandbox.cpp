@@ -28,6 +28,8 @@
 #include "persona.h"
 #include <doctest/doctest.h>
 #include <imnodes/imnodes.h>
+#include <IconFontCppHeaders/IconsFontAwesome5.h>
+#include <filesystem>
 
 // [Win32] Our example includes a copy of glfw3.lib pre-compiled with VS2010 to maximize ease of testing and compatibility with old VS compilers.
 // To link with VS2010-era libraries, VS2015+ requires linking with legacy_stdio_definitions.lib, which we do using this pragma.
@@ -362,6 +364,56 @@ static void glfw_error_callback(int error, const char* description)
 	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
+static void initiliaze() {
+	ImNodes::CreateContext();
+	Engine::initialize();
+}
+
+static void run() {
+	Engine::run();
+
+	{
+		ImGui::Begin("simple node editor");
+		ImNodes::BeginNodeEditor();
+		ImNodes::BeginNode(1);
+
+		ImNodes::BeginNodeTitleBar();
+		ImGui::TextUnformatted("simple node :)");
+		ImNodes::EndNodeTitleBar();
+
+		ImNodes::BeginInputAttribute(2);
+		ImGui::Text("input");
+		ImNodes::EndInputAttribute();
+
+		ImNodes::BeginOutputAttribute(3);
+		ImGui::Indent(40);
+		ImGui::Text("output");
+		ImNodes::EndOutputAttribute();
+
+		ImNodes::EndNode();
+
+		ImNodes::MiniMap(.1f, ImNodesMiniMapLocation_BottomLeft);
+		ImNodes::EndNodeEditor();
+		ImGui::End();
+	}
+
+	{
+		ImGui::PlotLines("Sin", [](void* data, int idx) { return sinf(idx * 0.2f); }, NULL, 100);
+		ImGui::PlotLines("Cos", [](void* data, int idx) { return cosf(idx * 0.2f); }, NULL, 100);
+		ImGui::Text(ICON_FA_PAINT_BRUSH "  Paint");    // use string literal concatenation
+	}
+}
+
+static void shutdown() {
+	Engine::shutdown();
+	ImNodes::DestroyContext();
+}
+
+constexpr auto ColorFromBytes = [](uint8_t r, uint8_t g, uint8_t b)
+{
+	return ImVec4((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, 1.0f);
+};
+
 int main(int argc, char** argv)
 {
 	// Launch doctest
@@ -414,12 +466,16 @@ int main(int argc, char** argv)
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
 
+	io.Fonts->AddFontFromFileTTF("fonts/Roboto-Medium.ttf", 16.0f);
+	ImFontConfig config;
+	config.MergeMode = true;
+	config.GlyphMinAdvanceX = 13.0f; // Use if you want to make the icon monospaced
+	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+	io.Fonts->AddFontFromFileTTF("fonts/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
+
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
 	//ImGui::StyleColorsClassic();
-
-	//Setup Dear ImGui addons
-	ImNodes::CreateContext();
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -428,7 +484,75 @@ int main(int argc, char** argv)
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
+	ImVec4* colors = style.Colors;
 
+	const ImVec4 bgColor = ColorFromBytes(37, 37, 38);
+	const ImVec4 lightBgColor = ColorFromBytes(82, 82, 85);
+	const ImVec4 veryLightBgColor = ColorFromBytes(90, 90, 95);
+
+	const ImVec4 panelColor = ColorFromBytes(51, 51, 55);
+	const ImVec4 panelHoverColor = ColorFromBytes(29, 151, 236);
+	const ImVec4 panelActiveColor = ColorFromBytes(0, 119, 200);
+
+	const ImVec4 textColor = ColorFromBytes(255, 255, 255);
+	const ImVec4 textDisabledColor = ColorFromBytes(151, 151, 151);
+	const ImVec4 borderColor = ColorFromBytes(78, 78, 78);
+
+	colors[ImGuiCol_Text] = textColor;
+	colors[ImGuiCol_TextDisabled] = textDisabledColor;
+	colors[ImGuiCol_TextSelectedBg] = panelActiveColor;
+	colors[ImGuiCol_WindowBg] = bgColor;
+	colors[ImGuiCol_ChildBg] = bgColor;
+	colors[ImGuiCol_PopupBg] = bgColor;
+	colors[ImGuiCol_Border] = borderColor;
+	colors[ImGuiCol_BorderShadow] = borderColor;
+	colors[ImGuiCol_FrameBg] = panelColor;
+	colors[ImGuiCol_FrameBgHovered] = panelHoverColor;
+	colors[ImGuiCol_FrameBgActive] = panelActiveColor;
+	colors[ImGuiCol_TitleBg] = bgColor;
+	colors[ImGuiCol_TitleBgActive] = bgColor;
+	colors[ImGuiCol_TitleBgCollapsed] = bgColor;
+	colors[ImGuiCol_MenuBarBg] = panelColor;
+	colors[ImGuiCol_ScrollbarBg] = panelColor;
+	colors[ImGuiCol_ScrollbarGrab] = lightBgColor;
+	colors[ImGuiCol_ScrollbarGrabHovered] = veryLightBgColor;
+	colors[ImGuiCol_ScrollbarGrabActive] = veryLightBgColor;
+	colors[ImGuiCol_CheckMark] = panelActiveColor;
+	colors[ImGuiCol_SliderGrab] = panelHoverColor;
+	colors[ImGuiCol_SliderGrabActive] = panelActiveColor;
+	colors[ImGuiCol_Button] = panelColor;
+	colors[ImGuiCol_ButtonHovered] = panelHoverColor;
+	colors[ImGuiCol_ButtonActive] = panelHoverColor;
+	colors[ImGuiCol_Header] = panelColor;
+	colors[ImGuiCol_HeaderHovered] = panelHoverColor;
+	colors[ImGuiCol_HeaderActive] = panelActiveColor;
+	colors[ImGuiCol_Separator] = borderColor;
+	colors[ImGuiCol_SeparatorHovered] = borderColor;
+	colors[ImGuiCol_SeparatorActive] = borderColor;
+	colors[ImGuiCol_ResizeGrip] = bgColor;
+	colors[ImGuiCol_ResizeGripHovered] = panelColor;
+	colors[ImGuiCol_ResizeGripActive] = lightBgColor;
+	colors[ImGuiCol_PlotLines] = panelActiveColor;
+	colors[ImGuiCol_PlotLinesHovered] = panelHoverColor;
+	colors[ImGuiCol_PlotHistogram] = panelActiveColor;
+	colors[ImGuiCol_PlotHistogramHovered] = panelHoverColor;
+	//colors[ImGuiCol_ModalWindowDarkening] = bgColor;
+	colors[ImGuiCol_DragDropTarget] = bgColor;
+	colors[ImGuiCol_NavHighlight] = bgColor;
+	colors[ImGuiCol_DockingPreview] = panelActiveColor;
+	colors[ImGuiCol_Tab] = bgColor;
+	colors[ImGuiCol_TabActive] = panelActiveColor;
+	colors[ImGuiCol_TabUnfocused] = bgColor;
+	colors[ImGuiCol_TabUnfocusedActive] = panelActiveColor;
+	colors[ImGuiCol_TabHovered] = panelHoverColor;
+
+	style.WindowRounding = 0.0f;
+	style.ChildRounding = 0.0f;
+	style.FrameRounding = 0.0f;
+	style.GrabRounding = 0.0f;
+	style.PopupRounding = 0.0f;
+	style.ScrollbarRounding = 0.0f;
+	style.TabRounding = 0.0f;
 	// Setup Platform/Renderer backends
 	ImGui_ImplGlfw_InitForVulkan(window, true);
 	ImGui_ImplVulkan_InitInfo init_info = {};
@@ -492,11 +616,9 @@ int main(int argc, char** argv)
 
 	// Our state
 	bool show_demo_window = true;
-	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-
-	Engine::initialize();
+	initiliaze();
 
 	// Main loop
 	while (!glfwWindowShouldClose(window))
@@ -527,70 +649,11 @@ int main(int argc, char** argv)
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		Engine::run();
-
-
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
 
-		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-		{
-			static float f = 0.0f;
-			static int counter = 0;
-
-			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-			ImGui::Checkbox("Another Window", &show_another_window);
-
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-				counter++;
-			ImGui::SameLine();
-			ImGui::Text("counter = %d", counter);
-
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			ImGui::End();
-		}
-
-		// 3. Show another simple window.
-		if (show_another_window)
-		{
-			ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-			ImGui::Text("Hello from another window!");
-			if (ImGui::Button("Close Me"))
-				show_another_window = false;
-			ImGui::End();
-		}
-
-		{
-			ImGui::Begin("simple node editor");
-			ImNodes::BeginNodeEditor();
-			ImNodes::BeginNode(1);
-
-			ImNodes::BeginNodeTitleBar();
-			ImGui::TextUnformatted("simple node :)");
-			ImNodes::EndNodeTitleBar();
-
-			ImNodes::BeginInputAttribute(2);
-			ImGui::Text("input");
-			ImNodes::EndInputAttribute();
-
-			ImNodes::BeginOutputAttribute(3);
-			ImGui::Indent(40);
-			ImGui::Text("output");
-			ImNodes::EndOutputAttribute();
-
-			ImNodes::EndNode();
-
-			ImNodes::MiniMap(.1f, ImNodesMiniMapLocation_BottomLeft);
-			ImNodes::EndNodeEditor();
-			ImGui::End();
-		}
+		run();
 
 		// Rendering
 		ImGui::Render();
@@ -615,14 +678,11 @@ int main(int argc, char** argv)
 			FramePresent(wd);
 	}
 
-	// Cleanup
-	Engine::shutdown();
-
+	shutdown();
 	err = vkDeviceWaitIdle(g_Device);
 	check_vk_result(err);
 	ImGui_ImplVulkan_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
-	ImNodes::DestroyContext();
 	ImGui::DestroyContext();
 
 	CleanupVulkanWindow();

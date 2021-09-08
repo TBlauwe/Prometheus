@@ -16,6 +16,9 @@
     <Filter Include="ImNodes">
       <UniqueIdentifier>{a8af95d9-dc00-468a-bfc8-b706498ee149}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{c9a66c3a-66f1-46de-9f6e-cd25762f0e8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\imconfig.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)imnodes\imnodes_internal.h">
       <Filter>ImNodes</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IconFontCppHeaders\IconsFontAwesome5.h">
+      <Filter>Fonts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\imgui.cpp">
@@ -80,5 +86,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)imnodes\imnodes.cpp">
       <Filter>ImNodes</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)imgui\misc\debuggers\imgui.natvis">
+      <Filter>ImGui</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="$(MSBuildThisFileDirectory)fonts\fa-solid-900.ttf">
+      <Filter>Fonts</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="$(MSBuildThisFileDirectory)imgui\misc\fonts\Roboto-Medium.ttf">
+      <Filter>Fonts</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IconFontCppHeaders\IconsFontAwesome5.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\backends\imgui_impl_vulkan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui\imconfig.h" />
@@ -36,5 +37,24 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\imgui_widgets.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imnodes\imnodes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)imgui\misc\debuggers\imgui.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="$(MSBuildThisFileDirectory)fonts\fa-solid-900.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\fonts</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\fonts</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="$(MSBuildThisFileDirectory)imgui\misc\fonts\Roboto-Medium.ttf">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\fonts</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\fonts</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
